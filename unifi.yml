@@ -1,0 +1,18 @@
+---
+- hosts: unifi
+  tasks:
+    - name: ubnt apt source
+      copy:
+        src: files/100-ubnt.list
+        dest: /etc/apt/sources.list.d/100-ubnt.list
+
+    - name: ubnt apt key
+      apt_key:
+        keyserver: keyserver.ubuntu.com
+        id: 06E85760C0A52C50
+
+    - name: unifi package
+      apt:
+        name: unifi
+        state: latest
+        update_cache: yes
