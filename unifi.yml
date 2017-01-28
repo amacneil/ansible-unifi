@@ -11,8 +11,12 @@
         keyserver: keyserver.ubuntu.com
         id: 06E85760C0A52C50
 
-    - name: unifi package
+    - name: apt update
       apt:
-        name: unifi
-        state: latest
         update_cache: yes
+
+    - name: apt packages
+      apt: name={{item}} state=latest
+      with_items:
+        - unifi
+        - haveged # prevents /dev/random blocking
